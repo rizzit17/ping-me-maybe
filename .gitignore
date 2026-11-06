@@ -1,0 +1,21 @@
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+
+# Local tooling, generated archives and editor state
+node_modules/
+.openai/
+.sites-runtime/
+.sites-checkout/
+*.tar.gz
+*.zip
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+__pycache__/
+
+# dist/ is the deployable application source for this buildless project.
+# Keep it tracked, including its synthetic data and specimen images.
