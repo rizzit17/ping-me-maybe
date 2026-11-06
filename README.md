@@ -26,7 +26,7 @@ Open **http://localhost:3000**. There are no npm dependencies to install and no 
 
 | Part of the journey | What you can do |
 | --- | --- |
-| Business discovery | Describe your business in English or Hindi, or edit the guided profile: business type, team size, locations, city, budget and priorities. |
+| Business discovery | Describe your business in English, Hindi or Tamil, or edit the guided profile: business type, team size, locations, city, budget and priorities. |
 | Product discovery | Search and filter all 25 supplied products, inspect terms and add eligible products to a bundle. |
 | Recommendations and quotes | See catalogue-based recommendations, change quantities and remove products. Monthly charges, setup fees, first-month totals and individual minimum contracts update together. |
 | Smart KYC | Give consent, check the mock GST/Udyam registries, upload document images and review text extracted on your device. |
@@ -34,7 +34,7 @@ Open **http://localhost:3000**. There are no npm dependencies to install and no 
 | Order tracking | Submit a demo order, download a summary and advance the explicitly simulated activation stages. |
 | Partner assistance | Add a request to the session-local partner queue and inspect segment results calculated from the synthetic leads. |
 
-Hindi support covers the advisor conversation, business choices and key journey prompts. The entire interface has not been translated.
+The advisor supports English, Hindi and Tamil. Key prompts are translated; product names and some supporting screens remain English.
 
 ## Try the prototype
 
@@ -74,22 +74,20 @@ After confirmation, submit the demo order and follow it in **My orders**. Use **
 
 OCR needs an internet connection to load Tesseract.js and its English language model. If loading fails or processing exceeds 25 seconds, the interface offers manual review. Uploaded images are processed in the browser, not sent to the advisor.
 
-## Optional live AI advisor
+## Live Gemini advisor
 
-The default advisor is labelled **Catalogue-guided demo**. It uses local rules and works without an API key.
-
-To enable live language-model responses on the local Node server:
+The local prototype has been tested against **Gemini 3.5 Flash-Lite** in English, Hindi and Tamil. A [sanitised verification record](docs/verification/live-advisor.json) contains the fictional test inputs' responses without credentials.
 
 1. Copy `.env.example` to `.env`.
-2. Add your own `OPENAI_API_KEY`.
-3. Optionally set `OPENAI_MODEL` to a model available to your account; the default is `gpt-4.1-mini`.
+2. Add your own `GEMINI_API_KEY` from [Google AI Studio](https://aistudio.google.com/apikey).
+3. Leave `AI_PROVIDER=gemini` and set `GEMINI_MODEL` to an available model. The tested model is `gemini-3.5-flash-lite`.
 4. Restart `npm run dev`.
 
-The server calls the Responses API through `/api/advisor`. The credential stays in the server environment, and `.env` is ignored by Git. API usage may incur charges. Requests are capped at 15 per minute per local client.
+The key stays on the server. The model receives catalogue context, calculated recommendations, basic business preferences and recent conversation history. Structured updates capture needs; catalogue rules still determine prices and eligibility. Identity-pattern checks stop common identifiers from being forwarded. Do not put personal information or document contents in chat.
 
-The language model explains and discusses needs. **The catalogue engine controls prices and eligibility**, including in live AI mode. Documents are not attached to advisor requests. Avoid entering identity numbers or document contents into chat.
+Google offers a [free tier](https://ai.google.dev/gemini-api/docs/pricing) for supported models, subject to account access and rate limits. Google's free tier may use submitted content to improve products, so this prototype uses fictional inputs only. No paid account or billing change has been made by this project.
 
-The hosted static preview runs in guided mode. A live hosted advisor requires a separately deployed backend with server-side secrets; static hosting does not execute `server.mjs`.
+Without a usable key, the interface clearly labels its catalogue-guided fallback. The original static hosted preview runs in that mode; it does not execute the Node API server. The supplied demo video shows the live Gemini advisor running locally. OpenAI remains an alternative: set `AI_PROVIDER=openai`, `OPENAI_API_KEY` and optionally `OPENAI_MODEL`.
 
 ## How it is put together
 
@@ -131,7 +129,7 @@ npm run check
 npm test
 ```
 
-The 17 tests cover all 3,534 supplied GSTIN checksums, cancelled/suspended registrations, recommendation eligibility across business profiles, quote arithmetic, product dependencies, invalid quantities, document dates and name mismatches. The full sample journey was also exercised in the browser, including a phone-width layout and on-device OCR.
+The 41 tests cover all 3,534 supplied GSTIN checksums, cancelled/suspended registrations, recommendation eligibility across business profiles, quote arithmetic, product dependencies, invalid quantities, document dates and name mismatches, provider integration contracts and all 12 supplied applicant fixture groups. The full sample journey was also exercised in the browser, including a phone-width layout and on-device OCR.
 
 To regenerate the browser data after editing the source CSVs:
 
@@ -151,8 +149,21 @@ This prototype does not connect to government registries, DigiLocker, e-sign, pa
 
 Read the [privacy and security design note](docs/PRIVACY.md) for the full choices and boundaries.
 
-## Demo and submission
+## Submission package
 
-[The three-minute demo guide](docs/DEMO.md) covers the recommended recording flow and exception examples. The remaining competition deliverables are the final seven-slide PPT/PDF and a demo video of up to three minutes. Use `PingMeMaybe_CampusName` once the campus name is confirmed.
+Team **Ping Me Maybe**, Vellore Institute of Technology, Vellore. The organiser's supplied slide frame is preserved. The deck contains exactly seven slides, including the opening slide.
+
+- [Seven-slide PowerPoint](submission/PingMeMaybe_VITVellore.pptx)
+- [Matching seven-page PDF](submission/PingMeMaybe_VITVellore.pdf)
+- [One-page privacy and security note](submission/PingMeMaybe_VITVellore_Privacy.pdf)
+- [Narrated demo video, under three minutes](submission/PingMeMaybe_VITVellore_Demo.mp4)
+- [Detailed business case and proposed pilot targets](docs/BUSINESS_CASE.md)
+- [Dated, sourced competitive analysis](docs/COMPETITIVE_ANALYSIS.md)
+- [Reproducible case metrics](docs/case-metrics.json)
+- [Demo method and recording guide](docs/DEMO.md)
+
+The video is a narrated walkthrough assembled from verified screenshots of the running prototype. It shows real interface states and uses a synthetic Windows voice; it is not a continuous screen recording. Registry lookups and activation remain simulated. Targets are hypotheses, not measured customer outcomes.
+
+`submission/` is ready for review and upload. Competition registration, team eligibility and the final Unstop submission must be completed using the team's account; this repository does not imply that an entry has been submitted.
 
 **Team Ping Me Maybe · Airtel Sync 2026 · Digital Track**

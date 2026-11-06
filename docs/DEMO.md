@@ -21,3 +21,7 @@ Keep the recording focused on one complete journey. Load the OCR engine before r
 - Withdraw KYC consent: entered identifiers, verification results and uploaded documents should clear.
 
 Keep exception footage separate if showing it would exceed the three-minute limit. Do not describe guided mode as live GenAI, or simulated tracker steps as actual service activation. Catalogue prices and observed funnel results are synthetic case data.
+
+## Prepared video
+
+The final MP4 is in `submission/`. It is an approximately 2 minute 51 second narrated walkthrough assembled from verified application screenshots with Windows SAPI narration. The advisor screenshot shows a real Gemini response. This is not a continuous screen recording. See `demo-metadata.json` beside the video for the measured scene duration.

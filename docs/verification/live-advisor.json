@@ -1,0 +1,28 @@
+{
+  "testedAt": "2026-11-06T18:59:38.689Z",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "inputs": "Fictional clinic business profile only; no KYC or personal data.",
+  "results": [
+    {
+      "language": "en",
+      "provider": "gemini",
+      "reply": "Your recommended bundle fits your 3500 budget at 3118 monthly. It includes Biz Fibre 300 for 1499, Backup Failover for 499, 5 Cloud Email & Office Suite licences for 625, and 5 Endpoint Security licences for 495, giving your clinic reliable connectivity and protection. Which management or billing tools are you currently using?",
+      "profileUpdates": {}
+    },
+    {
+      "language": "hi",
+      "provider": "gemini",
+      "reply": "नहीं, अगर आप पहले से Google Workspace इस्तेमाल कर रहे हैं, तो आपको दोबारा ईमेल सेवा खरीदने की ज़रूरत नहीं है। आपके 3,500 रुपये के बजट के भीतर, हमारा अनुशंसित बंडल Biz Fibre 300 (1,499 रुपये), Backup 4G/5G Failover (499 रुपये), और Endpoint Security (5 उपकरणों के लिए 495 रुपये) शामिल करता है। कुल मासिक खर्च 2,493 रुपये है। क्या आपके पास वर्तमान में कोई अन्य सॉफ्टवेयर या सुरक्षा टूल हैं जिनका आप उपयोग कर रहे हैं?",
+      "profileUpdates": {
+        "currentTools": "Google Workspace"
+      }
+    },
+    {
+      "language": "ta",
+      "provider": "gemini",
+      "reply": "நீங்கள் ஏற்கனவே Google Workspace பயன்படுத்துவதால், எங்களிடம் இருந்து மின்னஞ்சல் சேவை தேவையில்லை. உங்கள் 5 ஊழியர்களுக்கு நம்பகமான இணைப்பிற்கு 'Biz Fibre 300' (₹1499), 'Backup 4G/5G Failover' (₹499), மற்றும் 'Endpoint Security' 5 சாதனங்களுக்கு (₹495) சேர்த்து மொத்தம் மாதந்தோறும் ₹2,493 ஆகும். உங்கள் கிளினிக்கிற்கு பார்வையாளர் வைஃபை (Secure Wi-Fi) தேவையா?",
+      "profileUpdates": {}
+    }
+  ]
+}

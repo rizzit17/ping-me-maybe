@@ -1,0 +1,52 @@
+[
+  {
+    "image": "01-home.jpg",
+    "title": "Udyam Saathi | Ping Me Maybe | VIT Vellore",
+    "text": "Meet Udyam Saathi, our Airtel Sync prototype for small business onboarding. This walkthrough uses the fictional Accel Business case. The owner can discover a bundle, review an itemised quote, verify sample documents and follow an order in one workspace."
+  },
+  {
+    "image": "02-advisor.jpg",
+    "title": "Business discovery in the owner's language",
+    "text": "Start with a five-person clinic in Delhi and a monthly budget of three thousand five hundred rupees. Gemini responds using the supplied catalogue and calculated bundle. It asks useful follow-up questions, while the owner can edit the profile. The API key remains on the server, outside the browser."
+  },
+  {
+    "image": "03-quote.jpg",
+    "title": "INR 3,118/month | INR 1,500 setup | taxes excluded",
+    "text": "The catalogue engine recommends fibre, backup connectivity, five email accounts and device protection. The total is three thousand one hundred eighteen rupees a month, plus fifteen hundred rupees setup. Each product's minimum contract remains visible. These are synthetic starting prices, excluding taxes."
+  },
+  {
+    "image": "04-dependency.jpg",
+    "title": "Rules block incompatible product combinations",
+    "text": "If the owner removes the connection but keeps failover, checkout stops. The system explains the missing dependency. The language model cannot override catalogue prices or eligibility."
+  },
+  {
+    "image": "05-consent.jpg",
+    "title": "Consent comes before document processing",
+    "text": "Verification starts with a separate consent choice. Document reading and registry controls stay disabled until the owner agrees. Images remain in browser memory, and withdrawing consent clears them."
+  },
+  {
+    "image": "06-registry.jpg",
+    "title": "Mock registries | supplied fictional applicant K03",
+    "text": "For document testing, we switch to the supplied fictional applicant, Ganesh Woodcraft. The sample loader checks its full GST and Udyam identifiers against the mock registries. This is a separate fixture from the clinic pricing example, and no government service is contacted."
+  },
+  {
+    "image": "07-document.jpg",
+    "title": "On-device OCR with confirmation and exception checks",
+    "text": "OCR reads the signatory's name, expiry date, business name and bill details. The owner checks the original image before confirming. Date, name, address and registration mismatches require correction or manual review. All forty-seven supplied images have been processed in our audit."
+  },
+  {
+    "image": "08-tracker.jpg",
+    "title": "A visible order journey | simulated activation",
+    "text": "After review, the demo order appears in the tracker. The owner sees what happens next instead of repeatedly calling for status. These buttons simulate stages. Actual installation would require serviceability checks and an installer appointment."
+  },
+  {
+    "image": "09-partner.jpg",
+    "title": "Partner help retains the customer's context",
+    "text": "A help request appears in the partner workspace with the business context and selected bundle. It creates no external message. Partners handle exceptions and installation, while the pilot measures conversion, activation time, acquisition cost, follow-up calls and six-month churn."
+  },
+  {
+    "image": "10-tamil.jpg",
+    "title": "English, Hindi and Tamil | catalogue-controlled quotes",
+    "text": "The advisor also supports Hindi and Tamil. Our next step is an operator-reviewed professional-office pilot. We present the pilot targets as hypotheses, not measured improvements. The repository includes the working code, tests, seven-slide business case and privacy note."
+  }
+]
