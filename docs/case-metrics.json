@@ -1,0 +1,33 @@
+{
+  "source": "Supplied synthetic CSVs; not Airtel performance.",
+  "overall": {
+    "leads": 5000,
+    "activated": 368,
+    "conversionPercent": 7.359999999999999,
+    "acquisitionCost": 5539640.0,
+    "costPerLead": 1107.928,
+    "cac": 15053.369565217392,
+    "meanActivationDays": 17.616847826086957,
+    "meanFollowUpCalls": 3.010869565217391,
+    "sixMonthChurnPercent": 15.217391304347828
+  },
+  "professionalOffices": {
+    "leads": 1247,
+    "activated": 138,
+    "conversionPercent": 11.066559743384122,
+    "acquisitionCost": 1475870.0,
+    "costPerLead": 1183.5364875701684,
+    "cac": 10694.710144927536,
+    "meanActivationDays": 16.920289855072465,
+    "meanFollowUpCalls": 3.0652173913043477,
+    "sixMonthChurnPercent": 13.768115942028986
+  },
+  "planningScenario": {
+    "pilotLeads": 1000,
+    "targetConversionPercent": 15,
+    "incrementalDigitalCostPerLead": 20,
+    "modelledActivations": 150,
+    "modelledCAC": 8023.576583801123,
+    "reductionPercent": 24.976212771818997
+  }
+}
