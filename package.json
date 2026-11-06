@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node --env-file-if-exists=.env server.mjs",
     "start": "node --env-file-if-exists=.env server.mjs",
-    "test": "node --test --experimental-test-isolation=none tests/engine.test.mjs",
-    "check": "node --check dist/app.js && node --check dist/engine.js && node --check server.mjs"
+    "test": "node --test --experimental-test-isolation=none tests/engine.test.mjs tests/advisor.test.mjs tests/kyc-fixtures.test.mjs",
+    "check": "node --check dist/app.js && node --check dist/engine.js && node --check server.mjs && node --check advisor.mjs"
   }
 }

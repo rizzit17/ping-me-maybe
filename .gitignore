@@ -16,6 +16,8 @@ Thumbs.db
 .vscode/
 .idea/
 __pycache__/
+.build/
+.codex-finalizer/
 
 # dist/ is the deployable application source for this buildless project.
 # Keep it tracked, including its synthetic data and specimen images.

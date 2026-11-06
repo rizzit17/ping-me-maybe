@@ -16,3 +16,5 @@
 .line-description>span,.product-terms,.context-panel dt,.tax-note,.summary-totals dt,.demo-tools>span,.case-date,.privacy-points,.field small,.check-row small,.installation-note,.segment-bars small{color:#867a67}
 .hero-copy>p{color:#716b61}
 @media(max-width:640px){.hero h2{font-size:38px;letter-spacing:-1.7px}}
+
+.current-tools{margin-bottom:20px}.modal[data-language] .btn{margin-top:10px}

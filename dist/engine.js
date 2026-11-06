@@ -1,6 +1,6 @@
 // The catalogue, never the language model, is the authority for every quote.
 export const CASE_TODAY = '2026-07-15';
-export const DEFAULT_PROFILE = { type: '', name: '', employees: 5, sites: 1, city: 'Delhi', tier: 1, budget: 3500, language: 'en', hasGstin: false, internet: 'fibre', priority: 'reliability' };
+export const DEFAULT_PROFILE = { type: '', name: '', employees: 5, sites: 1, city: 'Delhi', tier: 1, budget: 3500, language: 'en', hasGstin: false, internet: 'fibre', priority: 'reliability', currentTools: '' };
 export const BUSINESS_TYPES = [
   { id: 'clinic', name: 'Clinic & healthcare', hi: 'क्लिनिक और हेल्थकेयर', segment: 'prof', icon: 'medical', example: 'Patient records, appointments, always-on internet' },
   { id: 'office', name: 'Professional office', hi: 'प्रोफेशनल ऑफिस', segment: 'prof', icon: 'briefcase', example: 'CA firms, consultancies & growing teams' },
@@ -51,11 +51,11 @@ export function recommend(profile,catalogue) {
   const connection=profile.internet==='wireless'?'P04':segment==='micro'?'P01':'P02';
   push(connection,profile.internet==='wireless'?'Wireless internet where fibre is unavailable.':'A reliable connection for your day-to-day work.',true);
   if (profile.priority==='budget') {
-    if(segment==='prof') push('P16','Business email for every member of your team.');
+    if(segment==='prof'&&!/workspace|office\s?365|microsoft\s?365|business email/i.test(profile.currentTools||'')) push('P16','Business email for every member of your team.');
   } else {
     if(profile.priority==='reliability') push('P09','Keep payments and work moving during a broadband outage.');
-    if(segment==='prof'||segment==='mfg') push('P16','Give your team professional email and shared documents.');
-    if(segment==='prof'||segment==='mfg') push('P20','Protect the devices that hold your business files.');
+    if((segment==='prof'||segment==='mfg')&&!/workspace|office\s?365|microsoft\s?365|business email/i.test(profile.currentTools||'')) push('P16','Give your team professional email and shared documents.');
+    if((segment==='prof'||segment==='mfg')&&!/endpoint|antivirus|defender|crowdstrike/i.test(profile.currentTools||'')) push('P20','Protect the devices that hold your business files.');
     if(segment==='micro') push('P19','Bring billing, inventory and payments together.');
     if(segment==='multi') push('P22','Separate guest Wi-Fi from your business network.');
     if(profile.priority==='customers' && profile.hasGstin) push('P15','Reach customers through a verified WhatsApp channel.');
@@ -78,12 +78,18 @@ export function parseMessage(text,profile) {
   if(/cheap|lowest|save|afford|कम बजट/.test(t)) p.priority='budget';
   if(/uptime|backup|reliab|outage/.test(t)) p.priority='reliability';
   if(/whatsapp|marketing|customers/.test(t)) p.priority='customers';
+  if(/already (?:use|have)|currently (?:use|have)|we use|using|पहले से|பயன்படுத்துகிறோம்/.test(t))p.currentTools=text.slice(0,300);
   const cities={delhi:1,mumbai:1,bengaluru:1,bangalore:1,chennai:1,hyderabad:1,kolkata:1,pune:1,jaipur:2,lucknow:2,indore:2,kochi:2,ludhiana:2,surat:2,coimbatore:2};
   for(const [city,tier] of Object.entries(cities)) if(t.includes(city)){p.city=city[0].toUpperCase()+city.slice(1);p.tier=tier;break;}
   return p;
 }
 export function advisorReply(text,profile,catalogue) {
   const hi=profile.language==='hi';
+  if(profile.language==='ta') {
+    if(!profile.type)return 'உங்கள் வணிகம் என்ன வகை? மருத்துவமனை, கடை அல்லது அலுவலகமா? தற்போது எந்த இணையம் மற்றும் மென்பொருட்களைப் பயன்படுத்துகிறீர்கள்?';
+    const q=calculateQuote(recommend(profile,catalogue),catalogue,profile);
+    return `${profile.employees} நபர்கள், ${profile.sites} இடங்களுக்கு ஆரம்ப பரிந்துரை மாதம் ₹${q.monthly.toLocaleString('en-IN')}. நிறுவல் கட்டணம் ₹${q.setup.toLocaleString('en-IN')}. ${q.overBudget?'இது உங்கள் பட்ஜெட்டை மீறுகிறது. குறைந்த விலைத் திட்டத்தைப் பார்க்கலாம்.':'இது உங்கள் பட்ஜெட்டிற்குள் உள்ளது.'} தற்போதுள்ள மென்பொருட்களைச் சொன்னால் தேவையற்ற சேவைகளைத் தவிர்க்கலாம். இறுதி விலை மற்றும் தகுதியை அடுத்த பக்கத்தில் பார்க்கவும்.`;
+  }
   if(!profile.type) return hi?'आपका व्यवसाय किस प्रकार का है? जैसे क्लिनिक, दुकान या ऑफिस। नीचे से भी चुन सकते हैं।':'Tell me what you do—run a clinic, a shop, an office, or something else? You can also choose a business type below.';
   if(/contract|cancel|commitment/.test(text.toLowerCase())) return hi?'हर प्रोडक्ट की न्यूनतम अवधि अलग है। कोट में मासिक लागत, सेटअप फीस और हर प्रोडक्ट की अवधि दिखाई गई है।':'Each product has its own minimum contract. Your quote shows every term, monthly charge and one-time fee before you proceed. No cancellation fee has been assumed in this prototype.';
   if(/privacy|data|safe|secure|kyc/.test(text.toLowerCase())) return hi?'KYC से पहले आपकी सहमति ली जाएगी। दस्तावेज़ इसी ब्राउज़र में पढ़े जाते हैं। यह डेमो केवल दिए गए काल्पनिक रजिस्टर से जाँच करता है।':'You control KYC consent. Document reading happens in this browser; checks use the supplied fictional registries. Documents are not sent to the advisor. You can clear all session data from the privacy screen.';
@@ -114,7 +120,17 @@ export function checkUdyam(value,registry) {
 export function maskIdentifier(value) {return value?`${value.slice(0,2)}${'•'.repeat(Math.max(4,value.length-6))}${value.slice(-4)}`:'';}
 export function extractDocument(text,kind) {
   const cleaned=text.toUpperCase();
-  const gst=cleaned.match(/\b\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]\b/)?.[0];
+  const exactGst=cleaned.match(/\b\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]\b/)?.[0];
+  const rawGst=cleaned.match(/GSTIN\s*[:\s]+([A-Z0-9]{15})\b/)?.[1];
+  let correctedGst;
+  if(!exactGst&&rawGst){
+    const chars=[...rawGst];
+    for(const i of [0,1,7,8,9,10])chars[i]=({O:'0',I:'1',L:'1',S:'5',B:'8'}[chars[i]]||chars[i]);
+    for(const i of [2,3,4,5,6,11])chars[i]=({'0':'O','1':'I'}[chars[i]]||chars[i]);
+    if(chars[13]==='7'||chars[13]==='2')chars[13]='Z';
+    const candidate=chars.join('');if(validateGstinFormat(candidate))correctedGst=candidate;
+  }
+  const gst=exactGst||correctedGst;
   const udyam=cleaned.match(/UDYAM[-\s]*[A-Z]{2}[-\s]*\d{2}[-\s]*\d{7}/)?.[0]?.replace(/\s/g,'');
   const dates=[...text.matchAll(/\b(\d{4})-(\d{2})-(\d{2})\b|\b(\d{2})[\/\-](\d{2})[\/\-](\d{4})\b/g)].map(m=>m[1]?`${m[1]}-${m[2]}-${m[3]}`:`${m[6]}-${m[5]}-${m[4]}`);
   const labelledBillDate=text.match(/Bill\s*date\s*[:\s]*(\d{4}-\d{2}-\d{2})/i)?.[1];
@@ -122,6 +138,8 @@ export function extractDocument(text,kind) {
   const validUntil=text.match(/Valid\s*(?:till|until|to)\s*[:\s]*(\d{4}-\d{2}-\d{2})/i)?.[1];
   const confirmedName=text.match(/(?:^|\n)\s*Name\s*[:\s]+([^\n]+)/i)?.[1]?.trim();
   const businessName=text.match(/(?:For business|Billed to)\s*[:\s]+([^\n]+)/i)?.[1]?.trim();
+  const legalName=text.match(/Legal\s*name\s*[:\s]+([^\n]+)/i)?.[1]?.trim();
+  const tradeName=text.match(/Trade\s*name\s*[:\s]+([^\n]+)/i)?.[1]?.trim();
   const confirmedAddress=text.match(/Supply\s*address\s*[:\s]+([\s\S]*?)(?:Bill\s*date|Units\s*consumed)/i)?.[1]?.trim().replace(/\s*\n\s*/g,' ');
   const age=billDate?Math.floor((Date.parse(CASE_TODAY)-Date.parse(billDate))/86400000):null;
   const issues=[];
@@ -130,7 +148,7 @@ export function extractDocument(text,kind) {
   if(kind==='address' && age!==null && age>90) issues.push(`Address proof is ${age} days old at the case reference date. Upload proof within 90 days.`);
   if(kind==='address' && labelledBillDate>CASE_TODAY) issues.push('Address proof issue date is after the case reference date.');
   if(kind==='id' && validUntil && validUntil<CASE_TODAY) issues.push('Signatory ID is expired at the case reference date.');
-  return {gst,udyam,billDate,validUntil,confirmedName,businessName,confirmedAddress,age,issues,textLength:text.trim().length};
+  return {gst,rawGst,gstCorrected:!!correctedGst,legalName,tradeName,udyam,billDate,validUntil,confirmedName,businessName,confirmedAddress,age,issues,textLength:text.trim().length};
 }
 export function validateKyc({consent,gstResult,udyamResult,documents,quote}) {
   const errors=[];
@@ -145,8 +163,29 @@ export function validateKyc({consent,gstResult,udyamResult,documents,quote}) {
   }
   const norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const registeredNames=[gstResult?.record?.legal_name,gstResult?.record?.trade_name,udyamResult?.record?.enterprise_name].filter(Boolean).map(norm);
+  if(gstResult?.record&&!gstResult.ok)errors.push('The supplied GST registration did not pass verification. Resolve it or remove that registration before proceeding.');
+  if(gstResult?.ok&&udyamResult?.ok&&gstResult.record.state!==udyamResult.record.state)errors.push('GST and Udyam registration states do not match. Request a manual review.');
   for(const kind of ['id','address']) {
     if(documents[kind]?.businessName && registeredNames.length && !registeredNames.includes(norm(documents[kind].businessName))) errors.push(`The business name on the ${kind==='id'?'signatory ID':'address proof'} does not match the verified registration. Request a manual review.`);
   }
+  const address=documents.address;
+  if(address?.status==='reviewed') {
+    if(!address.billDate||!/^\d{4}-\d{2}-\d{2}$/.test(address.billDate)||!Number.isFinite(Date.parse(address.billDate)))errors.push('Confirm a valid address proof issue date.');
+    else {const age=(Date.parse(CASE_TODAY)-Date.parse(address.billDate))/86400000;if(age<0||age>90)errors.push('Address proof must be within 90 days of the case reference date.');}
+    if(!address.confirmedAddress?.trim())errors.push('Confirm the business address.');
+    if(gstResult?.ok&&address.confirmedAddress&&norm(address.confirmedAddress)!==norm(gstResult.record.principal_place_of_business))errors.push('The address proof does not match the registered business address. Request a manual review.');
+  }
+  const id=documents.id;
+  if(id?.status==='reviewed') {
+    if(!id.confirmedName?.trim())errors.push('Confirm the authorised signatory name.');
+    if(!id.validUntil||!Number.isFinite(Date.parse(id.validUntil))||id.validUntil<CASE_TODAY)errors.push('Confirm a signatory ID valid on the case reference date.');
+    const proprietor=gstResult?.record?.legal_name?.match(/^(.+?)\s*\(Prop\./i)?.[1];
+    if(proprietor&&id.confirmedName&&norm(proprietor)!==norm(id.confirmedName))errors.push('The signatory differs from the registered proprietor. Supply authorisation through manual review.');
+  }
+  const gstDoc=documents.gst;
+  if(gstDoc?.gst&&gstResult?.record&&gstDoc.gst!==gstResult.record.gstin)errors.push('GST certificate identifier differs from the verified registration.');
+  if(gstDoc?.legalName&&gstResult?.ok&&norm(gstDoc.legalName)!==norm(gstResult.record.legal_name))errors.push('GST certificate legal name differs from the registered legal name. Request manual review.');
+  if(gstDoc?.tradeName&&gstResult?.ok&&norm(gstDoc.tradeName)!==norm(gstResult.record.trade_name))errors.push('GST certificate trade name differs from the registered trade name. Request manual review.');
+  if(documents.udyam?.udyam&&udyamResult?.record&&documents.udyam.udyam!==udyamResult.record.udyam_number)errors.push('Udyam certificate identifier differs from the verified registration.');
   return [...new Set(errors)];
 }
