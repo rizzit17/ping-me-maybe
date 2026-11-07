@@ -38,17 +38,16 @@ table(s,[['Five-person clinic, one site','Quantity','Monthly INR'],['Biz Fibre 3
 text(s,'INR 1,500 setup\nINR 4,618 first month\n12-month minimum',665,292,240,100,20,C.ink,true);
 text(s,'Starting case prices, excluding taxes.\nExisting tools are retained where possible.\nMulti-site and manufacturing follow later.',665,405,245,64,14,C.muted);
 
-s=slide('One journey, with human help for exceptions',3,'Source: working Udyam Saathi prototype in https://github.com/rizzit17/ping-me-maybe . Screenshots show real app state. Live GenAI needs a server-side API key. Mock registration lookups and simulated order stages have no government or operator integration. Product names and some supporting screens remain English.');
-await image(s,'02-advisor.jpg',55,165,415,212,'contain');
-await image(s,'03-quote.jpg',492,165,415,212,'contain');
-text(s,'01  Discover and explain',55,395,410,25,19,C.red,true);
-text(s,'English, Hindi or Tamil advice. Catalogue rules\ncontrol prices, quantities and dependencies.',55,427,415,45,16,C.muted);
-text(s,'02  Review the bundle',492,395,415,25,19,C.red,true);
-text(s,'Itemised charges and clear terms. Consent, local\nOCR and order tracking follow in the same workspace.',492,427,415,45,16,C.muted);
+s=slide('Would this clinic pay for backup connectivity?',3,'Source: Resilience Lab in the working prototype. Case P09 adds INR 499/month and INR 1,500 setup. User-editable scenario assumes INR 500 contribution lost per outage hour and 75% avoidable with backup. Protected contribution is hours × contribution × avoidable share × 12. No real outage or coverage data is used.');
+await image(s,'11-resilience.jpg',55,165,515,290,'contain');
+text(s,'Change the outage assumption',590,175,315,35,21,C.red,true);
+text(s,'2 h/month → INR 1,512 net benefit\n0.5 h/month → INR 5,238 net cost',590,220,315,67,17,C.ink,true);
+text(s,'Break-even: 1.66 hours per month. The receipt records the quote, assumptions and math.',590,300,315,75,16,C.muted);
+text(s,'The owner can revise the bundle, then continue to verification and order tracking.',590,382,315,65,15,C.muted);
 
 s=slide('Integrated bundles already exist; the journey must improve',4,'Sources reviewed 7 November 2026: [1] https://www.airtel.in/b2b/ [2] https://www.jio.com/business/services/connectivity/jiobusiness-solution/ [3] https://www.myvi.in/business/enterprise-segments/smb/msme-readyfornext . These public product pages establish advertised features, not independently tested onboarding performance. A feature not described on a page is unverified, not absent. Udyam Saathi is a prototype, not a market-leading product.');
-table(s,[['Offer','Established strength','Observed public entry','Implication for us'],['Airtel Business [1]','Broad connectivity, cloud\nand security portfolio','Request a callback\nfor tailored solutions','Reuse product depth;\nreduce discovery effort'],['JioBusiness [2]','Integrated connectivity\nand digital services','Product plans and\ndigital self-care','A bundle alone is\nnot differentiation'],['Vi ReadyForNext [3]','MSME digital-readiness\nassessment and advisory','Assessment-led\ndiscovery','Connect discovery to\na transparent next step'],['Udyam Saathi','Catalogue rules + local\nOCR + partner handoff','One demonstrable\nonboarding prototype','Test completion and\nclarity in the pilot']],55,168,850,260,[160,225,220,245],13.5);
-text(s,'Differentiation hypothesis: multilingual guidance, explainable bundles and visible exceptions\nin one flow. Competitor KYC speed and end-to-end conversion remain unverified.',55,443,850,40,15,C.muted);
+table(s,[['Offer','Established strength','Observed public entry','Implication for us'],['Airtel Business [1]','Broad connectivity, cloud\nand security portfolio','Request a callback\nfor tailored solutions','Reuse product depth;\nreduce discovery effort'],['JioBusiness [2]','Integrated connectivity\nand digital services','Product plans and\ndigital self-care','A bundle alone is\nnot differentiation'],['Vi ReadyForNext [3]','MSME digital-readiness\nassessment and advisory','Assessment-led\ndiscovery','Connect discovery to\na transparent next step'],['Udyam Saathi','Outage stress test + local\nOCR + partner handoff','One demonstrable\nonboarding prototype','Test completion and\nclarity in the pilot']],55,168,850,260,[160,225,220,245],13.5);
+text(s,'Differentiation hypothesis: multilingual guidance, testable bundle economics and visible exceptions\nin one flow. Competitor KYC speed and end-to-end conversion remain unverified.',55,443,850,40,15,C.muted);
 
 s=slide('The model advises; the catalogue and checks decide',5,'Architecture follows current source: advisor.mjs, server.mjs, dist/engine.js and dist/app.js. Gemini documentation: https://ai.google.dev/gemini-api/docs/structured-output . The API key stays server-side. Gemini free-tier submitted content may improve Google products; this demo should use fictional inputs only. No KYC images are attached to advisor requests. OCR and registry fixtures run in the browser.');
 diagramBox(s,'Owner workspace\nEnglish / Hindi / Tamil',55,178,235,65);arrow(s,303,202);

@@ -2,6 +2,10 @@
 
 Prepared for Airtel Sync 2026, Digital Track.
 
+## Try the Resilience Lab
+
+Open `/#lab` in the prototype. Start with the fictional clinic, switch from **Disrupted month** to **Quiet month**, and download a decision receipt. The lab compares catalogue-priced bundles over 12 months using editable estimates for outage hours, contribution lost per hour and the share backup could protect. A compatible one-site quote can adopt either option directly.
+
 ## Upload files
 
 | File | Purpose |
@@ -9,7 +13,7 @@ Prepared for Airtel Sync 2026, Digital Track.
 | `PingMeMaybe_VITVellore.pptx` | Exactly seven slides, including the opening slide, in the organiser's supplied frame |
 | `PingMeMaybe_VITVellore.pdf` | Matching seven-page PDF |
 | `PingMeMaybe_VITVellore_Privacy.pdf` | One-page privacy and security design note |
-| `PingMeMaybe_VITVellore_Demo.mp4` | Narrated prototype walkthrough, approximately 2 minutes 51 seconds |
+| `PingMeMaybe_VITVellore_Demo.mp4` | Narrated prototype walkthrough, approximately 2 minutes 50 seconds |
 | `PingMeMaybe_VITVellore_Architecture.png` | Separate view of the editable architecture included in slide five |
 
 Code repository: https://github.com/rizzit17/ping-me-maybe
@@ -22,4 +26,4 @@ The deck includes sourced competitive analysis, an office-segment pilot, five pr
 
 Confirm both members meet the organiser's eligibility rules and that the campus/team details match registration. Upload PPTX and PDF with the requested naming convention; attach or link the demo, repository and privacy note in the available fields. Check that the repository and video are accessible to reviewers. This package has not been uploaded to Unstop, and no declaration has been signed on the team's behalf.
 
-The original private hosted preview uses guided mode. Run the repository locally with your own `GEMINI_API_KEY` for live responses. The saved API key is excluded from source control and this submission package.
+The private hosted preview uses guided mode. Run the repository locally with your own `GEMINI_API_KEY` for live responses. The saved API key is excluded from source control and this submission package.

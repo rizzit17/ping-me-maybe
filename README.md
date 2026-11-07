@@ -10,6 +10,10 @@ A business owner describes what they need, gets an itemised bundle, checks their
 
 > This is an independent student prototype. The case uses the fictional operator **Accel Business** and synthetic data. It is not an official Airtel service, and it does not perform real KYC, collect payments or activate connections.
 
+## Try the Resilience Lab
+
+Open `/#lab` in the prototype. Start with the fictional clinic, switch from **Disrupted month** to **Quiet month**, and download a decision receipt. The lab compares catalogue-priced bundles over 12 months using editable estimates for outage hours, contribution lost per hour and the share backup could protect. A compatible one-site quote can adopt either option directly.
+
 ## Run it locally
 
 Install **Node.js 22**, then:
