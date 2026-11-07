@@ -19,6 +19,8 @@ deck=canvas.Canvas(str(OUT/'PingMeMaybe_VITVellore.pdf'),pagesize=(960,540))
 deck.setTitle('Udyam Saathi | Ping Me Maybe | VIT Vellore')
 for i in range(1,8):
  deck.drawImage(str(ROOT/f'.build/slides/slide-{i}.png'),0,0,width=960,height=540)
+ if i == 7:
+  deck.linkURL('https://github.com/rizzit17/ping-me-maybe', (55,52,430,71), relative=0)
  deck.showPage()
 deck.save()
 

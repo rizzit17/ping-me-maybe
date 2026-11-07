@@ -71,8 +71,12 @@ text(s,'Planning scenario only',665,448,240,24,15,C.muted);
 
 s=slide('Five measures determine whether the pilot expands',7,'Professional-office baselines from 1,247 synthetic leads and 138 activations: 11.0666% conversion, 16.9203 mean activation days, INR 10,694.71 CAC, 3.0652 follow-up calls and 13.7681% six-month churn. See docs/case-metrics.json and scripts/analyse-case.py for reproducible calculations. Targets are proposed pilot hypotheses. Churn cannot be measured in a 90-day pilot; review after six months. Sources: data/source/smb_leads.csv and docs/BUSINESS_CASE.md. Repository: https://github.com/rizzit17/ping-me-maybe .');
 table(s,[['Metric','Office baseline','Proposed target','Measurement'],['Lead-to-activation','11.07%','15%','Activated / all pilot leads'],['Mean lead-to-activation','16.9 days','10 days','Same eligible cohorts'],['Acquisition cost','INR 10,695','≤ INR 9,000','All acquisition cost / activated'],['Customer follow-up calls','3.07','≤ 1.5','Mean per activated customer'],['Six-month churn','13.8%','≤ 12%','Review at month six']],55,164,850,227,[245,160,165,280],14);
-text(s,'Rollout gates',55,411,850,26,21,C.red,true);
-text(s,'Hallucinations: catalogue-controlled quotes. Document fraud: authorised verification + human review.\nInstallation delays: serviceability checks. Partner adoption: shared leads and explicit ownership.',55,446,850,40,15,C.muted);
+text(s,'Rollout gates',55,400,850,26,21,C.red,true);
+text(s,'Hallucinations: catalogue-controlled quotes. Document fraud: authorised verification + human review.\nInstallation delays: serviceability checks. Partner adoption: shared leads and explicit ownership.',55,426,850,37,15,C.muted);
+
+const repositoryUrl='https://github.com/rizzit17/ping-me-maybe';
+const repositoryLink=text(s,'Code and demo  |  github.com/rizzit17/ping-me-maybe',55,469,375,19,14,C.red,true);
+repositoryLink.hyperlink={uri:repositoryUrl,isExternal:true};
 
 for(let i=0;i<P.slides.items.length;i++){
  const blob=await P.export({slide:P.slides.items[i],format:'png',scale:1.5});
