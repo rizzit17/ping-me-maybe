@@ -1,3 +1,4 @@
+import { labContext, outageDefaults, outageEconomics, decisionReceipt } from '../dist/resilience.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -22,3 +23,15 @@ test('KYC blocks submission without consent, registration and reviewed documents
 test('KYC accepts consistent reviewed documents with active registration',()=>{const r=gst.find(r=>r.status==='Active');assert.deepEqual(validateKyc({consent:true,gstResult:{ok:true,record:r},documents:{id:{status:'reviewed',businessName:r.legal_name,confirmedName:r.legal_name.split(' (Prop.')[0],validUntil:'2028-07-04'},address:{status:'reviewed',businessName:r.legal_name,billDate:'2026-05-30',confirmedAddress:r.principal_place_of_business}},quote:{gstRequired:true}}),[]);});
 test('KYC rejects a business-name mismatch across documents',()=>{const r=gst.find(r=>r.status==='Active');const errors=validateKyc({consent:true,gstResult:{ok:true,record:r},documents:{id:{status:'reviewed',businessName:'Different enterprise'},address:{status:'reviewed',businessName:r.legal_name}},quote:{gstRequired:false}});assert.ok(errors.some(x=>x.includes('does not match')));});
 test('masking does not expose full identifiers',()=>{const id=gst[0].gstin;assert.notEqual(maskIdentifier(id),id);assert.ok(maskIdentifier(id).includes('•'));assert.ok(maskIdentifier(id).endsWith(id.slice(-4)));});
+
+test('resilience economics flip at quieter outage levels and disclose the assumptions', () => {
+  const context = labContext([], catalogue, DEFAULT_PROFILE);
+  const result = outageEconomics(context.comparison, outageDefaults);
+  assert.equal(result.yearlyPremium, 7488);
+  assert.equal(result.yearlyNet, 1512);
+  assert.equal(result.breakEvenHours.toFixed(2), '1.66');
+  assert.equal(outageEconomics(context.comparison, { ...outageDefaults, hours: 0.5 }).yearlyNet, -5238);
+  assert.equal(outageEconomics(context.comparison, { ...outageDefaults, coverage: 0 }).breakEvenHours, null);
+  assert.match(decisionReceipt(context, outageDefaults), /Share of loss avoided by backup: 75%/);
+  assert.equal(labContext(context.comparison.withBackup, catalogue, { ...DEFAULT_PROFILE, sites: 2 }).comparison, null);
+});

@@ -18,3 +18,21 @@
 @media(max-width:640px){.hero h2{font-size:38px;letter-spacing:-1.7px}}
 
 .current-tools{margin-bottom:20px}.modal[data-language] .btn{margin-top:10px}
+.lab-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+.lab-card{border:1px solid #e9ded6;border-radius:18px;padding:clamp(16px,3vw,28px);background:#fff}
+.lab-card h2{font-size:1.2rem;margin:8px 0}
+.lab-card p,.lab-card small{color:#675b56;line-height:1.5}
+.lab-comparison{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}
+.lab-comparison th,.lab-comparison td{padding:10px 5px;text-align:left;border-bottom:1px solid #eadfd8}
+.lab-comparison td:last-child{color:#a91f21;font-weight:700}
+.lab-form{display:grid;gap:9px;margin-top:24px}
+.lab-form input{width:100%;border:1px solid #ccbeb6;border-radius:8px;padding:9px 11px;font:inherit}
+.lab-form label{font-size:.9rem;font-weight:650}
+.lab-form .primary{justify-self:start;margin-top:5px}
+.lab-presets{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.lab-result{background:#fff8f4}
+.lab-result dl{margin:20px 0}
+.lab-result dl div{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:9px 0}
+.lab-result dd{margin:0;font-weight:700;white-space:nowrap}
+.lab-net{border-top:1px solid #ead4c8;color:#a91f21}
+@media(max-width:850px){.lab-grid{grid-template-columns:minmax(0,1fr)}}
