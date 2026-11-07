@@ -20,7 +20,7 @@ function slide(title,number,source='Synthetic competition case data; all project
  s.speakerNotes.text=source;return s;
 }
 function table(s,values,x,y,w,h,widths,size=14){const t=s.tables.add({rows:values.length,columns:values[0].length,left:x,top:y,width:w,height:h,columnWidths:widths,values});t.borders.assign({fill:C.line,width:.6,style:'solid'});for(let r=0;r<values.length;r++)for(let c=0;c<values[r].length;c++){const cell=t.getCell(r,c);cell.fill=r===0?C.red:r%2===0?C.wash:'#FFFFFF';cell.text.style={fontFamily:font,fontSize:size,color:r===0?'#FFFFFF':C.ink,bold:r===0};}return t;}
-async function image(s,name,x,y,w,h,fit='contain'){const bytes=await fs.readFile(path.join(root,'docs/images/demo',name));s.images.add({blob:bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),contentType:'image/jpeg',position:{left:x,top:y,width:w,height:h},fit,crop:{left:0,top:0,right:0.24144,bottom:0.26875}});}
+async function image(s,name,x,y,w,h,fit='contain'){const bytes=await fs.readFile(path.join(root,'docs/images/slides',name));s.images.add({blob:bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),contentType:'image/jpeg',position:{left:x,top:y,width:w,height:h},fit});}
 function diagramBox(s,label,x,y,w=220,h=65){const shape=s.shapes.add({geometry:'rect',position:{left:x,top:y,width:w,height:h},fill:C.wash,line:{fill:C.line,width:1}});shape.text=label;shape.text.style={fontFamily:font,fontSize:16,color:C.ink,bold:true,alignment:'center',verticalAlignment:'middle'};return shape;}
 function arrow(s,x,y,w=36){s.shapes.add({geometry:'rightArrow',position:{left:x,top:y,width:w,height:15},fill:C.red,line:{fill:'none',width:0}});}
 
@@ -29,7 +29,7 @@ text(s,'A simpler digital start\nfor small businesses',55,169,440,112,37,C.ink,t
 text(s,'Discover a useful bundle, verify documents\nand follow activation in one workspace.',55,302,445,60,19,C.muted);
 text(s,'7.36%',55,390,165,58,43,C.red,true);
 text(s,'baseline lead-to-activation\n368 activations from 5,000 synthetic leads',225,399,350,50,15,C.muted);
-await image(s,'01-home.jpg',530,160,375,310,'contain');
+await image(s,'overview-laptop.jpg',510,190,400,225,'contain');
 
 s=slide('Professional offices are the first pilot segment',2,'Source: data/source/smb_leads.csv and product_catalogue.csv. Professional offices: 138 / 1,247 = 11.07%; micro retail: 110 / 2,709 = 4.06%. Higher observed conversion does not establish causality. Office bundle calculation: P02 1499 + P09 499 + P16 5*125 + P20 5*99 = INR 3118/month; P09 setup INR 1500. Each selected product has a 12-month minimum. Prices use the synthetic catalogue minimum and exclude taxes.');
 text(s,'11.07% observed conversion',55,163,445,37,25,C.red,true);
@@ -39,7 +39,7 @@ text(s,'INR 1,500 setup\nINR 4,618 first month\n12-month minimum',665,292,240,10
 text(s,'Starting case prices, excluding taxes.\nExisting tools are retained where possible.\nMulti-site and manufacturing follow later.',665,405,245,64,14,C.muted);
 
 s=slide('Would this clinic pay for backup connectivity?',3,'Source: Resilience Lab in the working prototype. Case P09 adds INR 499/month and INR 1,500 setup. User-editable scenario assumes INR 500 contribution lost per outage hour and 75% avoidable with backup. Protected contribution is hours × contribution × avoidable share × 12. No real outage or coverage data is used.');
-await image(s,'11-resilience.jpg',55,165,515,290,'contain');
+await image(s,'resilience-laptop.jpg',55,165,512,288,'contain');
 text(s,'Change the outage assumption',590,175,315,35,21,C.red,true);
 text(s,'2 h/month → INR 1,512 net benefit\n0.5 h/month → INR 5,238 net cost',590,220,315,67,17,C.ink,true);
 text(s,'Break-even: 1.66 hours per month. The receipt records the quote, assumptions and math.',590,300,315,75,16,C.muted);
